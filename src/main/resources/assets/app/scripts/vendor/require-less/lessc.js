@@ -3801,7 +3801,13 @@ tree.URL.prototype = {
             if (!val.quote) {
                 rootpath = rootpath.replace(/[\(\)'"\s]/g, function(match) { return "\\"+match; });
             }
-            val.value = rootpath + val.value;
+            //FIXME: to handle absolute path, not recommended! It should be resolved when constructed!
+            var indexOfSeperator = val.value.indexOf("//")
+            if(indexOfSeperator === -1) {
+                val.value = rootpath + val.value;
+            } else {
+                val.value = rootpath + val.value.slice(indexOfSeperator + 2)
+            }
         }
 
         return new(tree.URL)(val, this.rootpath);
