@@ -278,6 +278,9 @@ class JobScheduler @Inject()(val scheduleHorizon: Period,
       log.warning("Found old or invalid task, ignoring!")
       return
     }
+
+    persistenceStore.removeTask(taskId)
+
     val jobName = TaskUtils.getJobNameForTaskId(taskId)
     val jobOption = jobGraph.lookupVertex(jobName)
 
