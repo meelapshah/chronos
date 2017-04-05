@@ -250,7 +250,10 @@ class MesosJobFramework @Inject()(
   def slaveLost(schedulerDriver: SchedulerDriver, slaveID: SlaveID) {
     log.warning("Slave lost")
 
-    taskManager.removeTasksForSlave(slaveID.getValue)
+    // We'll wait for TASK_LOST to remove these tasks
+    // This way, if the agent recovers (since we have checkpointing enabled)
+    // we won't have duplicate tasks running.
+    // taskManager.removeTasksForSlave(slaveID.getValue)
   }
 
   @Override
