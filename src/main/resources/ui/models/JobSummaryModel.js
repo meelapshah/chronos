@@ -21,11 +21,13 @@ export default class JobSummaryModel {
   @computed get nextExpected() {
     if (!this.schedule) {
       return '—'
+    } else if (this.disabled) {
+      return 'disabled'
     } else {
       var scheduledDate = Date.parse(this.schedule.split('/')[1])
       var dateDiff = (scheduledDate - new Date().getTime()) / 1000.
       if (dateDiff <= 1) {
-        return 'OVERDUE'
+        return 'now'
       } else if (dateDiff <= 3600) {
         var minutes = Math.ceil(dateDiff / 60.0)
         if (minutes == 1) {

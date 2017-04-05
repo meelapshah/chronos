@@ -93,6 +93,23 @@ export class JobSummaryStore {
           return !serverJobNames.has(j.name)
          }).forEach(j => j.destroy())
 
+        otherThis.jobSummarys.sort(function(a, b) {
+          if (a.disabled && !b.disabled) {
+            return -1;
+          } else if (!a.disabled && b.disabled) {
+            return 1;
+          } else {
+            var aname = a.name.toUpperCase();
+            var bname = b.name.toUpperCase();
+            if (aname < bname) {
+              return -1;
+            } else if (aname > bname) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+        });
         otherThis.isLoading = false;
       });
     }).fail(function() {

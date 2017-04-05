@@ -39,7 +39,7 @@ class JobSummaryView extends React.Component {
     return (
       <tr key={job.name}>
         {this.getNameTd(job)}
-        <td className={job.nextExpected === 'OVERDUE' ? 'danger' : null} data-container="body" data-toggle="tooltip" data-placement="top" title={job.schedule}>{job.nextExpected}</td>
+        <td data-container="body" data-toggle="tooltip" data-placement="top" title={job.schedule}>{job.nextExpected}</td>
         <td className={this.getStatusClass(job)}>{job.status}</td>
         <td className={this.getStateClass(job)}>{job.state}</td>
         <td className="text-right">
